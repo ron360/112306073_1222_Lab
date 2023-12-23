@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title></title>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 50%;
+      margin: 20px;
+    }
+
+    table, th, td {
+      border: 1px solid black;
+    }
+
+    th, td {
+      padding: 10px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <form action="#">
+    <input id="rollButton" type="button" value="Roll Dice">
+  </form>
+  <img id="die1" src="die1.png">
+  <img id="die2" src="die1.png">
+  <img id="die3" src="die1.png">
+  <img id="die4" src="die1.png">
+  <img id="die5" src="die1.png">
+  <img id="die6" src="die1.png">
+  <br></br>
+  <img id="die7" src="die1.png">
+  <img id="die8" src="die1.png">
+  <img id="die9" src="die1.png">
+  <img id="die10" src="die1.png">
+  <img id="die11" src="die1.png">
+  <img id="die12" src="die1.png">
+  <table id="myTable">
+    <thead>
+      <tr>
+        <th>Face</th>
+        <th>Percent</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <script>
+    var dieImages = [];
+    var values = [0, 0, 0, 0, 0, 0];
+    var table = document.getElementById("myTable");
+
+    function start() {
+      var button = document.getElementById("rollButton");
+      button.addEventListener("click", rollDice);
+
+      for (var i = 1; i <= 12; i++) {
+        dieImages.push(document.getElementById("die" + i));
+      }
+    }
+
+    function rollDice() {
+      for (var i = 0; i < 12; i++) {
+        setImage(dieImages[i], i);
+      }
+      showPercent();
+    }
+
+    function setImage(dieImage, index) {
+      var dieValue = Math.floor(1 + Math.random() * 6);
+      dieImage.setAttribute("src", "die" + dieValue + ".png");
+      values[dieValue - 1]++;
+    }
+
+    function showPercent() {
+      for (var i = 1; i < 7; i++) {
+        var row = table.rows[i];
+        var cell1 = row.cells[0];
+        var cell2 = row.cells[1];
+        cell1.textContent = i ;
+        cell2.textContent = (values[i-1] * 100 / 12.0).toFixed(2);
+      }
+      values = [0, 0, 0, 0, 0, 0];
+    }
+
+    window.addEventListener("load", start);
+  </script>
+</body>
+</html>
